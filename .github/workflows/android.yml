@@ -1,0 +1,56 @@
+name: Build NativePHP Android APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Allows you to trigger the build manually from GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: dom, curl, libxml, mbstring, zip, pcntl
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install Java (Required for Android SDK)
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+
+    - name: Install Composer Dependencies
+      run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+    - name: Copy .env File
+      run: cp .env.example .env
+
+    - name: Generate App Key
+      run: php artisan key:generate
+
+    - name: Install NPM Dependencies & Build Assets
+      run: |
+        npm install
+        npm run build
+
+    - name: Run NativePHP Mobile Build
+      run: |
+        # This compiles your Laravel app into the Android environment
+        php artisan native:build android --no-interaction
+        
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: nativephp-android-app
+        path: native/android/app/build/outputs/apk/debug/*.apk
