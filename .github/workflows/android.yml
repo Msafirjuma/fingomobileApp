@@ -43,6 +43,8 @@ jobs:
       run: |
         npm install
         npm run build
+    - name: Accept Android SDK Licenses
+      run: yes | sdkmanager --licenses || true    
 
     - name: Run NativePHP Mobile Build
       run: |
