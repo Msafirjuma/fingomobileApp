@@ -52,8 +52,11 @@ jobs:
 
     - name: Run NativePHP Mobile Build
       run: |
-       rm -f native
+       rm -rf native nativephp
+
        php artisan native:install android --no-interaction
+
+       echo "sdk.dir=$ANDROID_HOME" > nativephp/android/local.properties
 
        sed -i 's/REPLACE_COMPILE_SDK/35/g' nativephp/android/app/build.gradle.kts
        sed -i 's/REPLACE_MIN_SDK/24/g' nativephp/android/app/build.gradle.kts
@@ -62,8 +65,10 @@ jobs:
        sed -i 's/REPLACE_MINIFY_ENABLED/false/g' nativephp/android/app/build.gradle.kts
        sed -i 's/REPLACE_SHRINK_RESOURCES/false/g' nativephp/android/app/build.gradle.kts
        sed -i 's/REPLACE_DEBUG_SYMBOLS/none/g' nativephp/android/app/build.gradle.kts
-       find nativephp/android -name "AndroidManifest.xml" -exec sed -i 's/REPLACE_APP_ID/com.msafirifingo.app/g' {} + 
-       
+
+       find nativephp/android -type f -exec sed -i 's/REPLACE_APP_ID/com.msafirifingo.app/g' {} +
+        
+
        cd nativephp/android
        chmod +x gradlew
        ./gradlew assembleDebug
