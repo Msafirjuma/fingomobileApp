@@ -56,8 +56,8 @@ jobs:
         
    -  name: Find and Show APK Files (Debugging)
       run: |
-        echo "Searching for compiled APKs..."
-        find . -name "*.apk" || echo "No APK found"
+        echo 'Searching for compiled APKs..."
+        find . -name "*.apk" || echo "No APK found'
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
