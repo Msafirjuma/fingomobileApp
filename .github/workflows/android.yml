@@ -54,7 +54,9 @@ jobs:
       run: |
        rm -f native
        php artisan native:install android --no-interaction
-       php artisan native:run android --build=debug --no-tty
+       cd nativephp/android
+       chmod +x gradlew
+       ./gradlew assembleDebug
 
     - name: Print NativePHP Build Logs on Failure
       if: always()
