@@ -62,8 +62,8 @@ jobs:
        sed -i 's/REPLACE_MINIFY_ENABLED/false/g' nativephp/android/app/build.gradle.kts
        sed -i 's/REPLACE_SHRINK_RESOURCES/false/g' nativephp/android/app/build.gradle.kts
        sed -i 's/REPLACE_DEBUG_SYMBOLS/none/g' nativephp/android/app/build.gradle.kts
-       sed -i 's/REPLACE_APP_ID/com.msafirifingo.app/g' nativephp/android/app/src/main/AndroidManifest.xml  
-
+       find nativephp/android -name "AndroidManifest.xml" -exec sed -i 's/REPLACE_APP_ID/com.msafirifingo.app/g' {} + 
+       
        cd nativephp/android
        chmod +x gradlew
        ./gradlew assembleDebug
