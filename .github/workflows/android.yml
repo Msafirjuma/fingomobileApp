@@ -33,13 +33,6 @@ jobs:
     - name: Install Composer Dependencies
       run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-    - name: Fix NativePHP Mobile Class Autoloading
-      run: |
-        mkdir -p nativephp/src
-        composer config autoload.psr-4 'Native\\Mobile\\' "nativephp/src/Mobile/"
-        composer dump-autoload --optimize
-
-
     - name: Copy .env File
       run: cp .env.example .env
 
@@ -62,6 +55,8 @@ jobs:
        rm -rf native nativephp
 
        php artisan native:install android --no-interaction
+
+       composer dump-autoload --optimize
 
        echo "sdk.dir=$ANDROID_HOME" > nativephp/android/local.properties
 
