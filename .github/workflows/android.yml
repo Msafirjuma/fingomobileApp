@@ -54,9 +54,15 @@ jobs:
       run: |
        rm -f native
        php artisan native:install android --no-interaction
-       cd nativephp/android
-       chmod +x gradlew
-       ./gradlew assembleDebug
+
+       sed -i 's/REPLACE_COMPILE_SDK/34/g' nativephp/android/app/build.gradle.kts
+       sed -i 's/REPLACE_MIN_SDK/24/g' nativephp/android/app/build.gradle.kts
+       sed -i 's/REPLACE_TARGET_SDK/34/g' nativephp/android/app/build.gradle.kts
+       sed -i 's/REPLACEMECODE/1/g' nativephp/android/app/build.gradle.kts
+       sed -i 's/REPLACE_MINIFY_ENABLED/false/g' nativephp/android/app/build.gradle.kts
+       sed -i 's/REPLACE_SHRINK_RESOURCES/false/g' nativephp/android/app/build.gradle.kts
+       
+       php artisan native:build android --no-interaction --no-tty
 
     - name: Print NativePHP Build Logs on Failure
       if: always()
