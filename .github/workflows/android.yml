@@ -52,10 +52,9 @@ jobs:
 
     - name: Run NativePHP Mobile Build
       run: |
-        rm -f native nativephp
-        mkdir -p native
-        mkdir -p nativephp
-        php artisan native:run android --build=debug --no-tty
+       rm -f native
+       php artisan native:install --panel=mobile --no-interaction
+       php artisan native:run android --build=debug --no-tty
 
     - name: Print NativePHP Build Logs on Failure
       if: always()
