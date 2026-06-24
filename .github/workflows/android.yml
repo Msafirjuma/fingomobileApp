@@ -79,6 +79,9 @@ jobs:
       with:
         name: mkusa-electronics-v1.0-debug
         path: |
+          **/build/outputs/apk/release/*.apk
           **/build/outputs/apk/debug/*.apk
+          **/build/outputs/bundle/release/*.aab
           **/*.apk
+          **/*.aab
         if-no-files-found: error
