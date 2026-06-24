@@ -62,7 +62,7 @@ jobs:
        sed -i 's/REPLACE_MINIFY_ENABLED/false/g' nativephp/android/app/build.gradle.kts
        sed -i 's/REPLACE_SHRINK_RESOURCES/false/g' nativephp/android/app/build.gradle.kts
        
-       php artisan native:build android --no-interaction --no-tty
+       php artisan native:package android --no-interaction --no-tty
 
     - name: Print NativePHP Build Logs on Failure
       if: always()
