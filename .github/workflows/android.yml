@@ -54,8 +54,16 @@ jobs:
         mkdir -p nativephp
         php artisan native:package android --no-interaction --no-tty
         
+   - name: Find and Show APK Files (Debugging)
+      run: |
+        echo "Searching for compiled APKs..."
+        find . -name "*.apk" || echo "No APK found"
+
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: nativephp-android-app
-        path: native/android/app/build/outputs/apk/debug/*.apk
+        name: mkusa-electronics-v1.0-debug
+        path: |
+          **/build/outputs/apk/debug/*.apk
+          **/*.apk
+        if-no-files-found: error
