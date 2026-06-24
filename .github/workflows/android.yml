@@ -48,8 +48,7 @@ jobs:
       uses: android-actions/setup-android@v3
 
     - name: Accept Android SDK Licenses
-      run: |
-        yes | sdkmanager --licenses || true  
+      run: yes | sdkmanager --licenses || true    
 
     - name: Run NativePHP Mobile Build
       run: |
@@ -57,7 +56,7 @@ jobs:
         mkdir -p native
         mkdir -p nativephp
         php artisan native:run android --build=debug --no-tty
-        
+
     - name: Print NativePHP Build Logs on Failure
       if: always()
       run: |
@@ -75,4 +74,4 @@ jobs:
         path: |
           **/build/outputs/apk/debug/*.apk
           **/*.apk
-        if-no-files-found: error  if-no-files-found: error
+        if-no-files-found: error
