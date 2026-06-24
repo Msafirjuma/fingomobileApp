@@ -54,10 +54,15 @@ jobs:
         mkdir -p nativephp
         php artisan native:package android --no-interaction --no-tty
         
-    - name: Find and Show APK Files (Debugging)
+    - name: Print NativePHP Build Logs on Failure
+      if: always()
       run: |
-        echo "Searching for compiled APKs..."
-        find . -name "*.apk" || echo "No APK found"
+        echo "=== Checking NativePHP Log Files ==="
+        if [ -f nativephp/android-build.log ]; then
+          cat nativephp/android-build.log
+        else
+          echo "No android-build.log file found."
+        fi
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
