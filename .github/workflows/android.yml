@@ -54,10 +54,10 @@ jobs:
         mkdir -p nativephp
         php artisan native:package android --no-interaction --no-tty
         
-   -  name: Find and Show APK Files (Debugging)
+    - name: Find and Show APK Files (Debugging)
       run: |
-        echo 'Searching for compiled APKs..."
-        find . -name "*.apk" || echo "No APK found'
+        echo "Searching for compiled APKs..."
+        find . -name "*.apk" || echo "No APK found"
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
