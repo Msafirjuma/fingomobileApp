@@ -44,8 +44,12 @@ jobs:
         npm install
         npm run build
 
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v3
+
     - name: Accept Android SDK Licenses
-      run: yes | sdkmanager --licenses || true    
+      run: |
+        yes | sdkmanager --licenses || true
 
     - name: Run NativePHP Mobile Build
       run: |
