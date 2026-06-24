@@ -48,8 +48,8 @@ jobs:
       run: yes | sdkmanager --licenses || true    
 
     - name: Run NativePHP Mobile Build
-      run:
-        rm -f native |
+      run: |
+        rm -f native 
         mkdir -p native
         php artisan native:package android --no-interaction --no-tty
         
