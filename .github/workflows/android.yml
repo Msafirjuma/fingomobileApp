@@ -49,8 +49,9 @@ jobs:
 
     - name: Run NativePHP Mobile Build
       run: |
-        rm -f native 
+        rm -f native nativephp
         mkdir -p native
+        mkdir -p nativephp
         php artisan native:package android --no-interaction --no-tty
         
     - name: Upload APK Artifact
