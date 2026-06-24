@@ -46,8 +46,7 @@ jobs:
 
     - name: Run NativePHP Mobile Build
       run: |
-        # This compiles your Laravel app into the Android environment
-        php artisan native:build android --no-interaction
+        php artisan native:package android --no-interaction --no-tty
         
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
